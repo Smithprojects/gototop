@@ -1,0 +1,1217 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:400,700,900&display=swap&subset=cyrillic');
+@font-face {
+font-family: 'Myriad Pro Regular';
+src: url(../fonts/MyriadPro-Regular.eot);
+src: url(../fonts/MyriadPro-Regular.eot?#iefix) format('embedded-opentype'),
+url(../fonts/MyriadPro-Regular.woff) format('woff'),
+url(../fonts/MyriadPro-Regular.ttf) format('truetype');
+font-weight: normal;
+font-style: normal; 
+}
+
+$mainBlue: #26a1e4;
+
+@mixin sliderSide($arrow) {
+	position: absolute;
+	top:0;
+	height: 100%;
+	width: 10%;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 2;
+	
+	@if $arrow == 'right' {
+		right: 0;
+	} @else {
+		left:0;
+	}
+}
+
+@mixin sliderSideArrow($arrow) {
+	height: 50px;
+	width: 40px;
+	background: url($arrow) center center / cover no-repeat;
+}
+
+@mixin menuPsev($type) {
+	content: "";
+	width: 100%;
+	height: 4px;
+	background-color: black; 
+	position: absolute;
+	left:0;
+	transition: 0.5s all;
+
+	@if $type == 'topLine' {
+		top: 0;
+	} @else {
+		bottom:0;
+	}
+}
+
+@mixin formInput() {
+	border: 4px solid $mainBlue;
+    background: white;
+    width: 100%;
+	box-sizing: border-box;
+	outline: none;
+}
+
+@mixin formPosition() {
+	width: 50%;
+	flex-grow: 1;
+	flex-basis: 392px;
+	box-sizing: border-box;
+}
+
+@mixin sliderBgr($path) {
+	background: url($path) center center no-repeat;
+	background-size: cover;
+}
+
+@mixin visual($path) {
+	background: url($path) center top no-repeat;
+	background-size: cover;
+}
+
+@mixin fotterBlok () {
+	font-size: 14px;
+	font-family: 'Myriad Pro Regular';
+	line-height: 20px;
+	flex-grow: 1;
+	flex-basis: 248px;
+	padding-top: 14px;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Myriad Pro Regular';
+}
+
+a {
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.wrapper {
+    max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 1%;
+	box-sizing: border-box;
+}
+
+.visual.visual_news {
+	@include visual('../img/pics/top2.jpg');
+}
+
+.visual.visual_news-two {
+	@include visual('../img/pics/top3.jpg');
+}
+
+.header {
+	.nav {
+		// height: 175px;
+		//height: 18vh;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		
+		&-logo {
+			width: 100%;
+			font-family: 'Myriad Pro Regular';
+			display: flex;
+			align-items: center;
+			white-space: nowrap;
+			
+			p {
+				color: #00bdec;
+				font-size: 56px;
+			}
+			
+			span {
+				color: #ff5384;
+			}
+			
+			.logo {
+				width: 95px;
+				height: 95px;
+				margin-right: 24px;
+				background: url(../img/icon/web.png) center center / cover no-repeat;
+			}
+		}
+
+		&-menu {
+			width: 100%;
+			display: flex;
+			justify-content: space-around;
+			
+			a {
+				font-family: 'Roboto Condensed', sans-serif;
+				font-weight: 700;
+				font-size: 18px;
+				color: #000;
+				
+				&:hover {
+					color: $mainBlue;
+				}
+			}
+		}
+
+		&-button {
+			position: relative;
+			width: 40px;
+			height: 40px;
+			display: none;
+			
+			&::before {
+				@include menuPsev ('topLine');
+			}
+			
+			&::after {
+				@include menuPsev ('bottomLine');
+			}
+			
+			&-line {
+				width: 100%;
+				height: 4px;
+				background-color: #000;
+				transition: 0.5s all;
+			}
+		}
+	}
+}
+
+.slider {
+	position: relative;
+	overflow: hidden;
+	height: 752px;
+	
+	
+	
+	&-info {
+		display: flex;
+		width: 500%;
+		position: relative;
+		left: -100%;
+		
+		&-item {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			height: 752px;
+
+			&:nth-child(1) {
+				@include sliderBgr('../img/backgrounds/Man_in_the_Modern.jpg');
+			}
+
+			&:nth-child(2) {
+				// display: flex;
+				@include sliderBgr('../img/backgrounds/back2.jpg');
+			}
+
+			&:nth-child(3) {
+				@include sliderBgr('../img/backgrounds/roof.jpg');
+			}
+
+			&:nth-child(4) {
+				@include sliderBgr('../img/backgrounds/Man_in_the_Modern.jpg');
+			}
+			
+			&:nth-child(5) {
+				@include sliderBgr('../img/backgrounds/back2.jpg');
+			}
+		}
+	}
+	
+	&-bullets {
+		position: absolute;
+		bottom: 20px;
+		left: 0;
+		right: 0;
+		text-align: center;
+		z-index: 2;
+
+		&-item {
+			margin: 0 15px;
+			height: 15px;
+			width: 15px;
+			border-radius: 50%;
+			background-color: #c0c0c0;
+			opacity: 0.8;
+			display: inline-block;
+			cursor: pointer;
+		}
+		
+		.active {
+			background-color: #c0c0c0;
+			border: 1px solid #fff;
+		}
+	}
+	
+	&-side-right {
+		@include sliderSide('right');
+
+		.arrow {
+			@include sliderSideArrow('../img/icon/gray-arrow-right.png');
+		}
+	}
+	
+	&-side-left {
+		@include sliderSide('left');
+
+		.arrow {
+			@include sliderSideArrow('../img/icon/gray-arrow-left.png');
+		}
+	}
+
+	.info {
+		position: absolute;
+		top: 0;
+		width: 100%;
+		height: 752px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: $mainBlue;
+		z-index: 1;
+
+		h1 {
+			text-align: center;
+			text-transform: uppercase;
+			font-size: 50px;
+		}
+
+		p {
+			font-size: 22px;
+		}
+
+		a {
+			margin-top: 61px;
+			padding: 15px 50px;
+			font-family: 'Myriad Pro Regular';
+			font-size: 15px;
+			font-weight: 400;
+			color: $mainBlue;
+			border: 1px solid $mainBlue;
+		}
+	}
+}
+
+.content {
+
+	.offer {
+		display: flex;
+		flex-wrap: wrap;
+		// align-items: center;
+		justify-content: center;
+		justify-content: space-around;
+		padding-top: 60px;
+		padding-bottom: 50px;
+	
+		&-blok {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 33.333333%;
+			min-width: 360.6px;
+	
+			&-icon img {
+				width: 76px;
+			}
+	
+			&-title {
+				margin-top: 22px;
+				font-size: 24px;
+				font-family: 'Myriad Pro Regular';
+				font-weight: 400;
+				text-transform: uppercase;
+				color: $mainBlue;
+			}
+	
+			&-text {
+				margin-top: 22px;
+				text-align: center;
+				font-size: 16px;
+				font-family: 'Myriad Pro Regular';
+				font-weight: 400;
+				line-height: 31px;
+			}
+		}
+	}
+	
+	
+	.connect {
+		width: 100%;
+		padding: 50px;
+		background-color: $mainBlue;
+		box-sizing: border-box;
+	
+		&-blok {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+	
+			&-text {
+				text-transform: uppercase;
+				font-size: 16px;
+				color: #fff;
+				flex-grow: 1;
+				flex-basis: 525px;
+			}
+	
+			&-button {
+	
+				a {
+					padding: 16px 40px;
+					border:1px solid #fff;
+					text-transform: uppercase;
+					font-size: 16px;
+					color: #fff;
+					font-family: 'Myriad Pro Regular';
+					font-weight: 400;
+				}
+			}
+		}
+	}
+
+	.last-work {
+			
+		&-blok {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			padding-top: 60px;
+			padding-bottom: 70px;
+	
+			h2 {
+				font-size: 35px;
+				font-family: 'Myriad Pro Regular';
+				font-weight: 400;
+				text-transform: uppercase;
+				color: $mainBlue;
+				position: relative;
+				// padding-left: 10px;
+				
+				&::after {
+					content: "";
+					left: 0;
+					right: 0;
+					width: 68px;
+					background-color: #ff5384;
+					height: 2px;
+					position: absolute;
+					bottom: -38%;
+				}
+			}
+	
+			.last-work-img {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				padding-top: 30px;
+	
+				div {
+					// width: 33.33333%;
+					padding: 10px;
+					box-sizing: border-box;
+					flex-grow: 1;
+					flex-basis: 170px;
+				}
+	
+				img {
+					border: 2px solid #ff5384;
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.statistics {
+		background-color: $mainBlue;
+	
+		&-blok {
+			display: flex;
+			justify-content: space-between;
+			// align-items: center;
+			flex-wrap: wrap;
+	
+			&-info {
+				font-family: 'Myriad Pro Regular';
+				text-transform: uppercase;
+				color: #fff;
+				flex-grow: 1;
+				flex-basis: 200px;
+				padding: 60px 0 60px 0;
+	
+				p:nth-child(1){
+					font-weight: 700;
+					font-size: 50px;
+					text-transform: uppercase;
+					text-align: center;
+					margin-bottom: 10px;
+				}
+	
+				p:nth-child(3){
+					font-size: 25px;
+					text-align: center;
+					margin-top: 20px;
+				}
+	
+				div {
+					height: 2px;
+					width: 40px;
+					background-color: #fff;
+					margin: 0 auto;
+				}
+			}
+		}
+	}
+
+	.news {
+					
+		&-block {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			// padding: 60px auto 110px auto;
+			padding-top: 40px;
+			padding-bottom: 40px;
+				
+			h2 {
+				font-size: 35px;
+				font-family: 'Myriad Pro Regular';
+				font-weight: 400;
+				text-transform: uppercase;
+				color: $mainBlue;
+				position: relative;
+
+				&::after {
+					content: "";
+					left: 0;
+					right: 0;
+					width: 68px;
+					background-color: #ff5384;
+					height: 2px;
+					position: absolute;
+					bottom: -38%;
+				}
+			}
+
+			&-container {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+				padding-top: 40px;
+	
+				.container {
+					display: flex;
+					background-color: #f8f8f8;
+					// position: relative;
+					flex-grow: 1;
+					flex-basis: 450px;
+					flex-wrap: wrap;
+	
+					&-text {
+						font-size: 16px;
+						padding: 40px;
+						flex-basis: 110px;
+						flex-grow: 1;
+	
+						p {
+							font-size: 16px;
+							line-height: 20px;
+						}
+
+						.container-button {
+							margin-top: 30px;
+							text-align: right;
+							
+							a {
+								font-size: 14px;
+								font-family: 'Myriad Pro Regular';
+								color: $mainBlue;
+							}
+						}
+					}
+				}
+			} 
+		}
+	}
+
+	.feedback {
+		background-color: #f8f8f8;
+	
+		.feedback-blok {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			// padding: 40px 0;
+			//padding-top: 40px;
+			padding-bottom: 40px;
+	
+			h2 {
+				font-size: 35px;
+				font-family: 'Myriad Pro Regular';
+				font-weight: 400;
+				text-transform: uppercase;
+				color: #26a1e4;
+				position: relative;
+
+				&::after {
+					content: "";
+					left: 0;
+					right: 0;
+					width: 68px;
+					background-color: #ff5384;
+					height: 2px;
+					position: absolute;
+					bottom: -38%;
+				}
+			}
+
+			form {
+				padding-top: 30px;
+
+				.feedback-form {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: space-around;
+				
+					&-data {
+						@include formPosition();
+						padding-right: 10px;
+						
+						[type="text"] {
+							@include formInput();
+							padding: 10px;
+							height: 48px;
+							margin: 10px 0px 0px 0px;
+						}
+					} 
+					
+					&-massage {
+						@include formPosition();
+						
+						textarea {
+							@include formInput();
+							padding: 5px 7px;
+							height: 164px;
+							margin: 10px 0px 0px 0px;
+							resize: none;
+						}
+				
+						.btn-form {
+							color: #fff;
+							font-size: 24px;
+							font-family: 'Myriad Pro Regular';
+							cursor: pointer;
+							padding: 10px;
+							background: $mainBlue;
+							width: 100%;
+							box-sizing: border-box;
+							margin-top: 11px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.fotter {
+	background-color: #161616;
+	color: #fff;
+
+	&-blok {
+		background-color: #161616;
+		display: flex;
+		justify-content: space-between;
+		// padding: 40px 0px;
+		padding-top: 40px;
+		padding-bottom: 40px;
+		flex-wrap: wrap;
+		
+		h2 {
+			font-size: 20px;
+			font-family: 'Myriad Pro Regular';
+			text-transform: uppercase;
+			color: #26a1e4;
+			padding-bottom: 30px;
+		}
+
+		&-aboutus {
+			@include fotterBlok ();
+		}
+
+		&-read {
+			@include fotterBlok ();
+
+			a {
+				font-size: 14px;
+				font-family: 'Myriad Pro Regular';
+				text-transform: none;
+				color: #fff;
+				display: block;
+			}
+		}
+
+		&-contact {
+			@include fotterBlok ();
+
+			img {
+				width: 12px;
+				margin-right: 9px;
+			}
+
+			a {
+				font-size: 14px;
+				font-family: 'Myriad Pro Regular';
+				text-transform: none;
+				color: #fff;
+			}
+		}
+	}
+
+	&-end {
+		height: 86px;
+		width: 100%;
+		background-color: #000;
+		text-align: center;
+		line-height: 86px;
+		font-size: 13px;
+		font-family: 'Myriad Pro Regular';
+	}
+}
+
+.open .nav-button-line {
+	opacity: 0;
+}
+
+.open.nav-button::after {
+	bottom: 18px;
+	transform: rotate(45deg);
+}
+
+.open.nav-button::before {
+	top: 18px;
+	transform: rotate(-45deg);
+}
+
+//pages contacts
+
+.visual {
+	height: 752px;
+	background: url(../img/pics/top1.jpg) center top / cover no-repeat;
+	//overflow: hidden;
+	position: relative;
+	
+
+	&-text {
+		text-align: center;
+		color: #fff;
+		position: absolute;
+		left: 0;
+		top: 50%;
+		right: 0;
+		bottom: 0;
+		z-index: 9;
+		
+		:nth-child(odd) {
+			font-size: 50px;
+			font-weight: 400;
+			text-transform: uppercase;
+		}
+		:nth-child(even) {
+			font-size: 22px;
+			font-weight: 400;
+			
+		}
+
+	}
+	
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #000;
+		opacity: 0.2;
+		z-index: 8;
+	}
+}
+
+.content {
+	background-color: #f8f8f8;
+	.about-us {
+
+		&-text {
+			padding: 40px 0;
+
+			h2 {
+				font-size: 35px;
+				font-weight: 400;
+				text-transform: uppercase;
+				color: $mainBlue;
+				position: relative;
+				margin-bottom: 20px;
+
+				&::after {
+					content: "";
+					left: 0;
+					right: 0;
+					width: 68px;
+					background-color:#ff5384;
+					height: 2px;
+					position: absolute;
+					bottom: -38%;
+				}
+			}
+
+			p {
+				padding-top: 20px;
+			}
+		}
+	}
+}
+
+.contact {
+	background-color: #fff;		
+	&-block {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		padding-top: 60px;
+		padding-bottom: 60px;
+			
+		h2 {
+			font-size: 35px;
+			font-family: 'Myriad Pro Regular';
+			font-weight: 400;
+			text-transform: uppercase;
+			color: $mainBlue;
+			position: relative;
+
+			&::after {
+				content: "";
+				left: 0;
+				right: 0;
+				width: 68px;
+				background-color:#ff5384;
+				height: 2px;
+				position: absolute;
+				bottom: -38%;
+			}
+		}
+
+		.contact-container {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			padding-top: 40px;
+	
+			.personal {
+				display: flex;
+				background-color: #f8f8f8;
+				// position: relative;
+				flex-grow: 1;
+				flex-basis: 502px;
+
+				img {
+					max-width: 300px;
+				}
+	
+				&-text {
+					padding: 25px 20px;
+	
+					:nth-child(1) {
+						font-size: 30px;
+					}
+
+					:nth-child(2) {
+						font-size: 16px;
+						color: $mainBlue;
+					}
+
+					:nth-child(3) {
+						font-size: 16px;
+						padding-top: 40px;
+					}
+					
+					:nth-child(4) {
+						text-transform: lowercase;
+						color: $mainBlue;
+					}
+				}
+			}
+		}	 
+	}
+}
+
+.feedback-two {
+	background-color: $mainBlue;
+	
+	&-blok {
+		display: flex;
+		padding-top: 20px;
+		padding-bottom: 20px;
+
+		.feedback-contacts {
+			width: 50%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+
+			&-blok {
+
+				img {
+					max-width: 30px;
+					//display:inline-block;
+					float: left;
+					padding-top: 25px;
+				}
+
+				p {
+					padding-left: 40px;
+					color: #fff;
+					font-size: 12px;
+					padding-top: 25px;
+
+					a {
+						text-transform: none;
+						color: #fff;
+					}
+				}
+			}
+		}
+
+		form {
+			width: 50%;
+
+			.feedback-form {
+				display: flex;
+				flex-direction: column;
+				//align-items: center;
+
+				p {
+					color: #fff;
+				}
+
+				input {
+					margin-top: 10px;
+					padding: 10px;
+					box-sizing: border-box;
+				}
+
+				textarea {
+					margin-top: 10px;
+					padding: 10px;
+					box-sizing: border-box;
+					height: 200px;
+				}
+
+				.btn-form {
+					color: #fff;
+					font-size: 20px;
+					font-family: 'Myriad Pro Regular';
+					cursor: pointer;
+					padding: 10px;
+					background: #ff5384;
+					//width: 100%;
+					//box-sizing: border-box;
+					margin-top: 10px;
+					
+				}
+			}
+		}
+	}
+}
+
+//pages news
+
+//адаптив
+@media (max-width: 425px) {
+
+	.slider {
+
+		.info {
+			text-align: center;
+
+			h1 {
+				font-size: 25px;
+			}
+
+			p {
+				font-size: 12px;
+			}
+		}
+	}
+
+	.content {
+
+		.offer {
+					
+			&-blok {
+				min-width: 300px;
+		
+				&-icon img {
+					width: 50px;
+				}
+		
+				&-title {
+					text-align: center;
+				}
+			}
+		}
+	}
+
+	.last-work {
+			
+		&-blok {
+			padding-top: 40px;
+			padding-bottom: 50px;
+	
+			h2 {
+				text-align: center;
+				
+				&::after {
+					display: none;
+				}
+			}
+		}
+	}
+
+	.content {
+		
+		.statistics {
+			
+			&-blok {
+					
+				&-info {
+					padding: 20px 0 20px 0;
+				}
+			}
+		}
+	
+
+		.news {
+						
+			&-block {
+				padding-bottom: 0px;
+							
+				h2 {
+					text-align: center;
+
+					&::after {
+						display: none;
+					}
+				}
+
+				&-container {
+					
+					.container {
+						justify-content: center;
+
+						&-text {
+							text-align: center;
+		
+							// p {
+							// 	font-size: 16px;
+							// 	line-height: 20px;
+							// }
+
+							.container-button {
+								margin-top: 20px;
+								text-align: center;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	.feedback {
+			
+		.feedback-blok {
+				
+			h2 {
+				text-align: center;
+
+				&::after {
+					display: none;
+				}
+			}
+		}
+	}
+	
+	//page contacts
+	.visual {
+			
+		&-text {
+						
+			:nth-child(odd) {
+				font-size: 25px;
+				
+			}
+			:nth-child(even) {
+				font-size: 12px;
+		
+			}
+		}
+	}
+}
+
+@media (max-width: 580px){
+	.contact {
+			
+		&-block {
+			text-align: center;
+				
+			h2 {
+					
+				&::after {
+					display: none;
+				}
+			}
+	
+			.contact-container {
+				
+				.personal {
+					flex-wrap: wrap;
+
+					&-img {
+						flex-basis: 229px;
+						flex-grow: 1;
+					}
+
+					&-text {
+						flex-basis: 229px;
+						flex-grow: 1;
+					}
+				}
+			}
+		}
+	}
+
+	.feedback-two {
+				
+		&-blok {
+			
+			.feedback-contacts {
+				display: none;
+			}
+	
+			form {
+				width: 100%;
+			}
+		}
+	}
+}
+
+@media (max-width: 800px) {
+	.header {
+		.nav {
+
+			&-logo {
+								
+				p {
+					
+					font-size: 36px;
+				}
+								
+				.logo {
+					width: 50px;
+					height: 50px;
+					margin-right: 12px;
+				}
+			}
+
+			&-menu {
+				display: block;
+				position: fixed;
+				background: white;
+				z-index: 9999;
+				top: 0;
+				padding-top:100px;
+				right: -100%;
+				left: 100%;
+				transition: .5s all;
+
+				a {
+					display: block;
+					padding: 5px;
+				}
+			}
+
+			.openmenu.nav-menu {
+				// display: block;
+				left: 0;
+				right: 0;
+			}
+		
+			&-button {
+				// display: block;
+				position: fixed;
+				right: 30px;
+				z-index: 999999;
+				display: flex;
+				align-items: center;
+			}
+		}
+	}
+
+	.content {
+		.connect {
+			text-align: center;
+		
+			&-blok {
+				justify-content: center;
+				
+		
+				&-text {
+					padding-bottom: 20px;
+				}
+			}
+		}
+
+		.feedback {
+
+			.feedback-blok {
+
+				form {
+		
+					.feedback-form {
+								
+						&-data {
+							padding-right: 0px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//pages contacts
+	.contact-block {
+		padding-top: 0px;
+	}
+}
